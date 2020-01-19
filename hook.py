@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+__author__ = 'T3rry'
 
 #from __future__ import print_function
 import frida
@@ -6,7 +7,6 @@ import sys
 import signal
 import requests
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from optparse import OptionParser
 import multiprocessing 
 import urllib
 
@@ -51,14 +51,12 @@ def handler(signal_num,frame):
 def frida_process_message(message,data):
 
 	if message != None:
-
 		#print message
 		postdata= (message['payload']['payload'])
 		api=(message['payload']['api'])
 
 		if message['payload']['type'] == 'frida':
-			req = requests.request('FRIDA', 'http://%s:%d/%s' % (SERVER_HOST, SERVER_PORT,api),data=postdata,proxies={'http':'http://%s:%d' % (BURP_HOST, BURP_PORT)})
-			
+			req = requests.request('FRIDA', 'http://%s:%d/%s' % (SERVER_HOST, SERVER_PORT,api),data=postdata,proxies={'http':'http://%s:%d' % (BURP_HOST, BURP_PORT)})	
 			script.post({ 'type': 'burp', 'data': urllib.unquote(req.content) })
 
 signal.signal(signal.SIGINT, handler)
