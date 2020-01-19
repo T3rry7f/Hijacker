@@ -135,7 +135,7 @@ Interceptor.attach(postData.implementation, {
     string=escape(string)
   }
  
-   var newString=ForwardData(strData,'SHDecrypt')    
+   var newString=ForwardData(string,'SHDecrypt')    
 
    LogR("*RECV: \n"+unescape(newString))
 
